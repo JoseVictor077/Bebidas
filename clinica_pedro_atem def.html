@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Controle de Pacientes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@700&display=swap');
+    
+
+    header {
+      background-color: #333;
+      background-image: url(https://images.hdqwalls.com/wallpapers/desert-night-minimal-4k-hp.jpg);
+      background-size: cover;
+      color: #1858ab;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 20px;
+      padding: 10px;
+    }
+
+    body {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: medium;
+      background-color: #077287;
+      background-image: url(https://images.hdqwalls.com/wallpapers/desert-night-minimal-4k-hp.jpg);
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      max-width: 400px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+    }
+
+    label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+      padding: 5px;
+      border-radius: 5px;
+      border: none;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+
+    button[type="submit"] {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      color: #000000;
+      width: 100%;
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+      border-radius: 10px;
+    }
+
+    th,
+    td {
+      font-size: 16px;
+      text-align: center;
+      color: #333;
+      padding: 10px;
+      vertical-align: middle;
+    }
+
+    th {
+      background-color: #0c3086;
+      color: #fff;
+    }
+    
+    .status-bolinha {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  .status-verde {
+    background-color: green;
+  }
+
+  .status-vermelho {
+    background-color: red;
+  }
+    
+  </style>
+</head>
+
+
+<body>
+  <header>
+    <h1>Controle de Pacientes clínica Dr. Pedro Atem</h1>
+  </header>
+
+  <form id="form-paciente">
+    <div>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+    </div>
+
+    <div>
+      <label for="cpf">CPF:</label>
+      <input type="number" id="cpf" name="cpf" required>
+    </div>
+
+    <div>
+      <label for="idade">Idade:</label>
+      <input type="number" id="idade" name="idade">
+    </div>
+
+    <div>
+      <label for="rsocial">Razão Social:</label>
+      <input type="text" id="rsocial" name="nome_empresa" required>
+    </div>
+
+    <div>
+      <label for="pagamento">Situação de Pagamento:</label>
+      <select id="pagamento" name="pagamento" required>
+        <option value="pago">Pago</option>
+        <option value="pendente">Pendente</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="formas_pg">Forma de pagamento:</label>
+      <select name="formas" id="formas_pg" required>
+        <option value="pix">Pix</option>
+        <option value="especie">Especie</option>
+        <option value="convenio">Convênio</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="valor_pago">Valor:</label>
+      <input type="number" step="0.01" id="valor_pago" name="valor.pago" required>
+    </div>
+
+    <div>
+      <label for="data">Data:</label>
+      <input type="date" id="data" name="data" required>
+    </div>
+
+    <div>
+      <label for="procedimento">Procedimento:</label>
+      <select name="Procedimento" id="procedimento" required>
+        <option value="fantasma">Selecione o procedimento</option>
+        <option value="consulta">Consulta</option>
+        <option value="Fisioterapia">Fisioterapia</option>
+        <option value="Pericia">Pericia</option>
+        <option value="Corpo de Delito">Corpo de Delito</option>
+        <option value="ExameClinico">Exame Clínico</option>
+        <option value="detran">Detran</option>
+      </select>
+    </div>
+
+    <button type="submit" id="adicionar-paciente">Adicionar Paciente</button>
+  </form>
+
+  <div>
+    <div id="resultado"></div>
+  </div>
+
+  <table id="tabela-pacientes">
+    <thead>
+      <tr>
+        <th>Atendido</th>
+        <th>Nome</th>
+        <th>Razão Social</th>
+        <th>Data</th>
+        <th>Procedimento</th>
+        <th>Valor Pago</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+  <div> <table id="tabelaatendidos">
+    <thead>
+      <tr>
+        <th>Atendidos</th>
+        <th id="coluna-atendidos"></th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Valor Total:</th>
+        <th id="coluna-valor-total"></th>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <script src="clinica.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+</body>
+
+</html>
+
+
+
